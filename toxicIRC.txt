@@ -1,0 +1,8 @@
+## Title: toxicIRC
+## Author: ToxicSky
+## Version: 0.5
+## APIVersion: 100010
+## SavedVariables: toxicIRCSavedVariables
+## Description: Adds a different colour of your name when someone writes it so you can keep better track of when someone wants you something in, for example, the guild chat.
+
+toxicIRC.lua
