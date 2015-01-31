@@ -16,9 +16,21 @@ function toxicIRCAddon:IRCStyle(text)
 		if not msg then
 			return forward(arg1, arg2, msg, ...);
 		end
-		match = smatch(msg, "("..username..")")
+		local patterns = {
+		smatch(msg, "("..username..")"),
+		smatch(msg, "("..string.lower(username)..")"),
+		smatch(msg, "("..sub(username, 1, 2).."?..?)"),
+		smatch(msg, "("..sub(string.lower(username), 1, 2).."?..?)")
+	}
+		for k, v in pairs(patterns) do
+			if patterns[k] then
+				match = patterns[k]
+				break
+			end
+		end
+		--match = smatch(msg, "("..username..")")
 		if match then
-			msg = string.gsub(msg, match, "|cffff00"..username.."|r")
+			msg = string.gsub(msg, match, "|cffff00"..match.."|r")
 		end
 		return forward(arg1, arg2, msg, ...);
 	end);
