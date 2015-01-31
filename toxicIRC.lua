@@ -3,9 +3,33 @@ toxicIRCAddon.name = 'toxicIRC'
 toxicIRCAddon.version = "0.5"
 local sub = string.sub;
 local smatch = string.match;
+local sfind = string.find;
 local username = string.sub(GetDisplayName(), 2)
 local character = GetUnitName("player")
-
+function toxicIRCAddon:checkName(msg)
+	local match = nil
+	local patterns = {
+		sfind(msg, "("..username..")"),
+		sfind(msg, "("..string.lower(username)..")"),
+		sfind(msg, "("..sub(username, 1, 2).."..)"),
+		sfind(msg, "("..sub(string.lower(username), 1, 2).."..)")
+	}
+	
+	for k,v in pairs(patterns) do
+		if patterns[k] then
+			uname = sub(msg, patterns[k])
+			for i=1, string.len(uname) do
+				if sub(uname, i, i) ~= sub(username, i, i) then
+					match = nil
+				else
+					match = uname
+				end
+			end
+			break
+		end
+	end
+	return match
+end
 function toxicIRCAddon:IRCStyle(text)
 	local forward = ZO_ChatSystem_GetEventHandlers()[EVENT_CHAT_MESSAGE_CHANNEL];
 	local rawEventUpdate = ZO_ChatSystem_AddEventHandler;
@@ -16,19 +40,7 @@ function toxicIRCAddon:IRCStyle(text)
 		if not msg then
 			return forward(arg1, arg2, msg, ...);
 		end
-		local patterns = {
-		smatch(msg, "("..username..")"),
-		smatch(msg, "("..string.lower(username)..")"),
-		smatch(msg, "("..sub(username, 1, 2).."?..?)"),
-		smatch(msg, "("..sub(string.lower(username), 1, 2).."?..?)")
-	}
-		for k, v in pairs(patterns) do
-			if patterns[k] then
-				match = patterns[k]
-				break
-			end
-		end
-		--match = smatch(msg, "("..username..")")
+		match = toxicIRCAddon:checkName(msg)
 		if match then
 			msg = string.gsub(msg, match, "|cffff00"..match.."|r")
 		end
