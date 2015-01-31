@@ -6,4 +6,4 @@ This is to easier notify you when someone want your attention and is inspired by
 
 To be added:
 ####
-A proper array of patterns, since not all uses your entire username.
+ - A proper array of patterns, since not all uses your entire username.
