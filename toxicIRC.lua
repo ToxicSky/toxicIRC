@@ -15,11 +15,12 @@ function toxicIRCAddon:checkName(msg)
 		sfind(msg, "("..sub(string.lower(username), 1, 2).."..)")
 	}
 	
-	for k,v in pairs(patterns) do
+	for k, v in pairs(patterns) do
 		if patterns[k] then
-			uname = sub(msg, patterns[k])
-			for i=1, string.len(uname) do
-				if sub(uname, i, i) ~= sub(username, i, i) then
+			i, j = patterns[k]
+			uname = sub(msg, i, j)
+			for x=1, string.len(uname) do
+				if sub(uname, x, x) ~= sub(username, x, x) then
 					match = nil
 				else
 					match = uname
