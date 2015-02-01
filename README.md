@@ -10,6 +10,7 @@ TODO
 ####
 Will add an external library, probably in C++, to handle the regex.
 The current pattern, so far:
+#
 (\b(?i)[ToxicSky]{3})
 The regex is not yet tested in the program, but rather on a website (myregextester.com).
 Will also see about matching several patterns, comparing the entire username and then test various alternatives. Not everyone is bothered by using the full username in a mmorpg.
